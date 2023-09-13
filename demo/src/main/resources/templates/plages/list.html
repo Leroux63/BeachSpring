@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!--    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">-->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <title>Liste des plages</title>
+</head>
+<body>
+<h1 class="text-center">La liste des plages</h1>
+
+
+<span class="text-center"><a th:href="@{/plages/add}" class="btn btn-primary">Ajouter une plage</a></span>
+
+
+<div th:if="${plages.getTotalElements()==0}">Aucune plage dispo !</div>
+<div class="container">
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Lien Détail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="plage : ${plages.content}">
+            <td th:text="${plage.name}"></td>
+            <td><img width="100" th:src="${plage.image}" alt=""/></td>
+            <td><a th:href="@{'/plages/' + ${plage.id}}">Lien du détail de ma plage</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-around">
+        <!--    Pagination -->
+        <nav aria-label="...">
+            <ul class="pagination">
+                <!--            <li class="page-item disabled">-->
+                <!--                <span class="page-link">Previous</span>-->
+                <!--            </li>-->
+                <li class="page-item"><a th:if="${plages.hasPrevious()}" class="page-link"
+                                         th:href="@{/plages/list?page=__${plages.getNumber()}__}">Page Précédente</a>
+                </li>
+                <li class="page-item active">
+      <span class="page-link" th:text="${plages.number + 1}">
+
+        <span class="sr-only">(current)</span>
+      </span>
+                </li>
+                <li class="page-item"><a th:if="${plages.hasNext()}" class="page-link"
+                                         th:href="@{/plages/list?page=__${plages.getNumber()+2}__}">Page Suivante</a>
+                </li>
+                <!--            <li class="page-item">-->
+                <!--                <a class="page-link" href="#">Next</a>-->
+                <!--            </li>-->
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

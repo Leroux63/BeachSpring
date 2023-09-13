@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail de la plage</title>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">Ma plage</h1>
+    <div class="row">
+        <div class="col">
+            <div th:text="${plage.name}"></div>
+            <td><img width="600" th:src="${plage.image}" alt=""/></td>
+        </div>
+        <div class="col">
+            <td><a th:href="@{/plages/edit/{plage}(plage=${plage.id})}" class="btn btn-warning">Editer la plage</a></td>
+            <td><a th:href="@{/plages/delete/{plage}(plage=${plage.id})}" class="btn btn-danger">Supprimer la plage</a></td>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

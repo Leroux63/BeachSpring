@@ -23,7 +23,7 @@ public class PlageDataApplication {
         return args -> {
             logger.info("Création d'une plage");
             if (plageService.findByName("Une belle plage sur la Côte d'Azur.").isEmpty()) {
-                Plage plage1 = new Plage("Une belle plage sur la Côte d'Azur.", "45", "Les quais", "06000", "Nice", "https://www.hotel-leroyal-nice.com/wp-content/uploads/sites/9/2018/06/plage-nice-cote-dazur.jpg");
+                Plage plage1 = new Plage("Une belle plage sur la Côte d'Azur.", "45", "Les quais", "06000", "Nice");
                 plageService.addPlage(plage1);
             }
             if (plageService.findByName("Plage de Biarritz").isEmpty()) {

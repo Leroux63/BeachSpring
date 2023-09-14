@@ -6,6 +6,8 @@
     <title>Liste des plages</title>
 </head>
 <body>
+<div th:replace="parts/header.html :: header" class="d-flex"></div>
+<div th:replace="parts/header :: nav"></div>
 <div class="container">
     <h1 class="text-center">Ajouter une plage</h1>
     <form th:object="${plage}" method="post">

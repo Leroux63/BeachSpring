@@ -2,19 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
-    <!--    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">-->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <title>Liste des plages</title>
 </head>
 <body>
-<h1 class="text-center">La liste des plages</h1>
-
-
-<span class="text-center"><a th:href="@{/plages/add}" class="btn btn-primary">Ajouter une plage</a></span>
-
+<div th:replace="parts/header.html :: header" class="d-flex"></div>
+<div th:replace="parts/header :: nav"></div>
+<h2 class="text-center">La liste des plages</h2>
 
 <div th:if="${plages.getTotalElements()==0}">Aucune plage dispo !</div>
-<div class="container">
+<div class="container min-vh-100">
     <table class="table table-striped table-dark">
         <thead>
         <tr>
@@ -26,8 +23,14 @@
         <tbody>
         <tr th:each="plage : ${plages.content}">
             <td th:text="${plage.name}"></td>
-            <td><img width="100" th:src="${plage.image}" alt=""/></td>
-            <td><a th:href="@{'/plages/' + ${plage.id}}">Lien du détail de ma plage</a></td>
+            <td>
+                <img th:if="${plage.image != null}" width="100" th:src="${plage.image}" alt=""/>
+                <img th:if="${plage.image == null}" width="100" th:src="@{/images/photo.jpg}" alt=""/>
+            </td>
+            <td>
+                <a th:href="@{'/plages/' + ${plage.id}}" class="btn btn-primary" role="button">Lien du détail de ma plage</a>
+            </td>
+
         </tr>
         </tbody>
     </table>
@@ -57,5 +60,7 @@
         </nav>
     </div>
 </div>
+<div th:replace="parts/footer :: footer"></div>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.hb.dl.demo.services;
 
+import com.hb.dl.demo.forms.SearchForm;
 import com.hb.dl.demo.models.Plage;
+import com.hb.dl.demo.repository.PlageCriteriaRepository;
 import com.hb.dl.demo.repository.PlageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,9 @@ public class PlageService {
 
         @Autowired
         private PlageRepository plageRepository;
+
+        @Autowired
+        private PlageCriteriaRepository plageCriteriaRepository;
 
         public List<Plage> getAll(){
                 return this.plageRepository.findAll();
@@ -40,5 +45,9 @@ public class PlageService {
                 Pageable pageable = PageRequest.of(page, nbResult);
                 Page<Plage> plagePaginated = this.plageRepository.pagePagination(pageable);
                 return plagePaginated;
+        }
+
+        public List<Plage> searchEngine(SearchForm searchForm){
+                return this.plageCriteriaRepository.searchEnginePlage(searchForm);
         }
 }

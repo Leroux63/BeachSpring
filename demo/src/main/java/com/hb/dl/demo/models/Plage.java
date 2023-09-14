@@ -25,16 +25,23 @@ public class Plage {
     @NotEmpty(message = "Veuillez saisir une ville")
     private String city;
     @Basic
-    @NotEmpty(message = "Veuillez saisir uen url d'image valide")
     private String image;
 
-    public Plage(String name,String number, String address, String postalCode, String city, String image) {
+    public Plage(String name, String number, String address, String postalCode, String city, String image) {
         this.name = name;
         this.number = number;
         this.address = address;
         this.postalCode = postalCode;
         this.city = city;
         this.image = image;
+    }
+
+    public Plage(String name, String number, String address, String postalCode, String city) {
+        this.name = name;
+        this.number = number;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.city = city;
     }
 
     public Plage() {
@@ -94,6 +101,11 @@ public class Plage {
     }
 
     public void setImage(String image) {
-        this.image = image;
+        if (image == null || image.trim().isEmpty()) {
+            this.image = null;
+        } else {
+            this.image = image;
+        }
     }
+
 }

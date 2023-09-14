@@ -1,8 +1,11 @@
 package com.hb.dl.demo.controllers;
 
+import com.hb.dl.demo.enums.Department;
+import com.hb.dl.demo.forms.SearchForm;
 import com.hb.dl.demo.models.Plage;
 import com.hb.dl.demo.services.PlageService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -96,5 +99,33 @@ public class PlageController {
             this.plageService.save(plage);
             return "redirect:/plages/list";
         }
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView searchForm(){
+        ModelAndView mv = new ModelAndView("plages/search-engine");
+        List<String> departmentName = Department.getList(Department.DEPARTMENT_NAME,true);
+        List<String> departmentNumero = Department.getList(Department.DEPARTMENT_NUMERO,true);
+
+        List<Plage> plages = this.plageService.getAll();
+        mv.addObject("form", new SearchForm());
+        mv.addObject("departmentName",departmentName);
+        mv.addObject("departmentNumero",departmentNumero);
+        mv.addObject("plages",plages);
+        return mv;
+    }
+
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
+    public ModelAndView searchFormSubmit(@Valid SearchForm searchForm, BindingResult bindingResult){
+        ModelAndView mv = new ModelAndView("plages/search-engine");
+
+        List<Plage> plages = this.plageService.searchEngine(searchForm);
+        mv.addObject("plages",plages);
+        mv.addObject("form", searchForm);
+        List<String> departmentName = Department.getList(Department.DEPARTMENT_NAME,false);
+        List<String> departmentNumero = Department.getList(Department.DEPARTMENT_NUMERO,false);
+        mv.addObject("departmentName",departmentName);
+        mv.addObject("departmentNumero",departmentNumero);
+        return mv;
     }
 }
